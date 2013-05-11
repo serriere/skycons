@@ -637,7 +637,7 @@ var Skycons;
   };
 
   Skycons.prototype = {
-    add: function(el, draw) {
+    add: function(el, draw, strokeColor) {
       var obj;
 
       if(typeof el === "string")
@@ -650,9 +650,9 @@ var Skycons;
       };
 
       this.list.push(obj);
-      this.draw(obj, KEYFRAME);
+      this.draw(obj, KEYFRAME, strokeColor);
     },
-    set: function(el, draw) {
+    set: function(el, draw, strokeColor) {
       var i;
 
       if(typeof el === "string")
@@ -661,11 +661,11 @@ var Skycons;
       for(i = this.list.length; i--; )
         if(this.list[i].element === el) {
           this.list[i].drawing = draw;
-          this.draw(this.list[i], KEYFRAME);
+          this.draw(this.list[i], KEYFRAME, strokeColor);
           return;
         }
 
-      this.add(el, draw);
+      this.add(el, draw, strokeColor);
     },
     remove: function(el) {
       var i;
@@ -679,7 +679,7 @@ var Skycons;
           return;
         }
     },
-    draw: function(obj, time) {
+    draw: function(obj, time, strokeColor) {
       var canvas = obj.context.canvas;
 
       if(this.resizeClear)
@@ -688,7 +688,7 @@ var Skycons;
       else
         obj.context.clearRect(0, 0, canvas.width, canvas.height);
 
-      obj.drawing(obj.context, time, this.color);
+      obj.drawing(obj.context, time, strokeColor);
     },
     play: function() {
       var self = this;
